@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import 'bulma/css/bulma.css';
-import { Card, Button, Notification } from 'bloomer';
+import { Card, Button, Notification, MenuList, MenuLink, Image ,Menu, MenuLabel} from 'bloomer';
+import {BrowserRouter as Router, Route, Link, } from 'react-router-dom';
 
 
 import ChatForm from '../Form/Form.js';
@@ -29,12 +30,14 @@ class App extends Component {
     firebase.auth().signOut();
   }
   render() {
-    return (
+    return ( 
+      <>
+    <Router>
       <div className="app">
         <div className="app__header">
-          <Notification isColor="dark">
-          Zoo's Chat Planet
-          </Notification>
+          <Link to='/'><Button isColor="dark">
+          Home
+          </Button></Link>
           { !this.state.user ? (
             <Button isColor="danger"
               className="app__button"
@@ -51,10 +54,24 @@ class App extends Component {
             </Button>
           )}
         </div>
+        
+          <Route exact path="/"><MenuList><Link to='/chat'>
+          Zoo's Chat Planet
+          </Link></MenuList></Route>
+          
         <div className="app__list">
-          <ChatForm user={this.state.user} />
+         <Route exact path="/chat"><ChatForm user={this.state.user} /></Route>
         </div>
       </div>
+      {/* <Menu>
+    <MenuLabel>Start Chatting!</MenuLabel>
+    <MenuList>
+    <Route exact path="/"><MenuList isColor="danger"><MenuLink isActive><Link to='/chat'>
+          Zoo's Chat Planet
+          </Link></MenuLink></MenuList></Route>
+    </MenuList>
+</Menu> */}
+</Router></>
     );
   }
 }

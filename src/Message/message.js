@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import './message.css';
 import { directive } from "@babel/types";
 import 'bulma/css/bulma.css';
-import { Card, Button } from 'bloomer';
+import { Card, Button , Message} from 'bloomer';
 
 export default class Chats extends Component{
     render(){
