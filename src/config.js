@@ -1,8 +1,12 @@
-export default {
-  apiKey: "AIzaSyAaODb7bCoZPvV4gdVyG_sV_Lc1_GuVdwg",
-  authDomain: "react-intro-37cd1.firebaseapp.com",
-  databaseURL: "https://react-intro-37cd1.firebaseio.com",
-  projectId: "react-intro-37cd1",
-  storageBucket: "react-intro-37cd1.appspot.com",
-  messagingSenderId: "181293593583"
+const firebaseConfig = {
+  apiKey: "AIzaSyBIIwRPOWRyNeXl93WtBaknRiW9_ISGO1A",
+  authDomain: "chatbaby-e2d69.firebaseapp.com",
+  databaseURL: "https://chatbaby-e2d69.firebaseio.com",
+  projectId: "chatbaby-e2d69",
+  storageBucket: "chatbaby-e2d69.appspot.com",
+  messagingSenderId: "569857878461",
+  appId: "1:569857878461:web:93896a45cd84ab398d0ad4",
+  measurementId: "G-PS8741BRH0"
 };
+
+export default firebaseConfig;

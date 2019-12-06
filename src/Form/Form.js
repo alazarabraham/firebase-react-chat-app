@@ -3,8 +3,9 @@ import './Form.css';
 import Chat from '../Message/message';
 import firebase from 'firebase';
 import 'bulma/css/bulma.css';
-import { Card, Button, Notification , Input} from 'bloomer';
-export default class ChatForm extends Component {
+import { Button , Input} from 'bloomer';
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+class ChatForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,7 +24,7 @@ export default class ChatForm extends Component {
   handleChange(event) {
     this.setState({message: event.target.value});
   }
-  handleSend() {
+  sendChat() {
     if (this.state.message) {
       var newItem = {
         userName: this.state.userName,
@@ -33,9 +34,9 @@ export default class ChatForm extends Component {
       this.setState({ message: '' });
     }
   }
-  handleKeyPress(event) {
+  keyPress(event) {
     if (event.key !== 'Enter') return;
-    this.handleSend();
+    this.sendChat();
   }
   listenMessages() {
     this.messageRef
@@ -50,8 +51,8 @@ export default class ChatForm extends Component {
     return (
       <div className="form">
         <div className="form__message">
-          { this.state.list.map((item, index) =>
-            <Chat key={index} message={item} />
+        { this.state.list.map((item, index) =>
+            <Chat key={index} message={item} />,
           )}
         </div>
         <div className="form__row">
@@ -61,11 +62,12 @@ export default class ChatForm extends Component {
             placeholder="Type message"
             value={this.state.message}
             onChange={this.handleChange.bind(this)}
-            onKeyPress={this.handleKeyPress.bind(this)}
+            onKeyPress={this.keyPress.bind(this)}
           />
+          
           <Button 
             className="form__button"
-            onClick={this.handleSend.bind(this)}
+            onClick={this.sendChat.bind(this)}
           >
             Chat!
           </Button>
@@ -74,3 +76,4 @@ export default class ChatForm extends Component {
     );
   }
 }
+export default ChatForm
