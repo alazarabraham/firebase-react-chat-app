@@ -4,7 +4,9 @@ import 'bulma/css/bulma.css';
 import {BrowserRouter as Router,Route,Link} from 'react-router-dom';
 
 class Chats extends Component{
+    
     render(){
+        
         return(
     
             <div className="message">
@@ -12,6 +14,7 @@ class Chats extends Component{
                 {this.props.message.message}
                 
             </div>
+            
         )
     }
 }

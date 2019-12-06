@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import 'bulma/css/bulma.css';
-import { Button, NavbarItem,NavbarDivider,NavbarEnd,Icon,Navbar,Field,Control,NavbarBrand,brand,NavbarBurger,NavbarMenu,NavbarStart,NavbarLink,NavbarDropdown} from 'bloomer';
+import { Button,Icon, Title} from 'bloomer';
 import {BrowserRouter as Router, Route, Link, } from 'react-router-dom';
 
 
@@ -23,31 +23,51 @@ class App extends Component {
   }
   SignIn() {
     const provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(provider).then(function(result) {
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      var token = result.credential.accessToken;
+    // firebase.auth().signInWithPopup(provider).then(function(result) {
+    //   // This gives you a Google Access Token. You can use it to access the Google API.
+    //   var token = result.credential.accessToken;
+    //   // The signed-in user info.
+    //   var user = result.user;
+    //   console.log(user)
+    //   // ...
+    // }).catch(function(error) {
+    //   // Handle Errors here.
+    //   var errorCode = error.code;
+    //   var errorMessage = error.message;
+    //   // The email of the user's account used.
+    //   var email = error.email;
+    //   // The firebase.auth.AuthCredential type that was used.
+    //   var credential = error.credential;
+    //   // ...
+    // });
+    firebase.auth().signInWithRedirect(provider);
+    firebase.auth().getRedirectResult().then(function(result) {
+      if (result.credential) {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const token = result.credential.accessToken;
+        // ...
+      }
       // The signed-in user info.
-      var user = result.user;
-      console.log(user)
-      // ...
+      const user = result.user;
+      
     }).catch(function(error) {
       // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
+      const errorCode = error.code;
+      const errorMessage = error.message;
       // The email of the user's account used.
-      var email = error.email;
+      const email = error.email;
       // The firebase.auth.AuthCredential type that was used.
-      var credential = error.credential;
+      const credential = error.credential;
       // ...
-    });
-    
-    // firebase.auth().signInWithPopup(provider);
-   
-  
-    
+    }
+    );
+        
   }
+
+  
   LogOut() {
     firebase.auth().signOut();
+    
   }
   render() {
     return ( 
@@ -67,21 +87,21 @@ class App extends Component {
                   
               
           { !this.state.user ? (
-            <Button isColor="danger"
+            <Button isColor="danger" isHovered='true' isOutlined='true'
               className="app__button"
               onClick={this.SignIn.bind(this)}
             >
               Sign in
             </Button>
           ) : (
-            <Button isColor='warning'
+            <Button isColor='warning' isHovered='true'
               className="app__button"
               onClick={this.LogOut.bind(this)}
             >
               Logout
             </Button>
           )}  
-          <Button isColor='info' id="twitter" data-social-network="Twitter" data-social-action="tweet"
+          <Button className='app_button' isHovered='true' isColor='info' id="twitter" data-social-network="Twitter" data-social-action="tweet"
                     data-social-target="http://bloomer.js.org" target="_blank" href="https://twitter.com/intent/tweet?text=Zoo's chat, the best chat on the planet 😏">
                         <Icon className="fa fa-twitter" />
                         <span>Tweet</span>
@@ -93,7 +113,7 @@ class App extends Component {
           </Link></MenuList></Route> */}
         </div>  
         <div className="app__list">
-        <img src='https://miro.medium.com/max/1400/1*OBaJPAq9-QUuD1qzFwZveA.png'/>
+        <img src='https://www.thespruceeats.com/thmb/f8iuHil9qeQ_VvrpsklcERyGFFU=/960x0/filters:no_upscale():max_bytes(150000):strip_icc()/cappuccino-with-cocoa-powder-in-a-coffee-shop-696828002-5a8cdd4030371300379a59fd.jpg'/>
          <Route exact path="/"><ChatForm user={this.state.user} /></Route>
         
         </div>

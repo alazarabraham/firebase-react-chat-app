@@ -16,9 +16,9 @@ class ChatForm extends Component {
     this.messageRef = firebase.database().ref().child('messages');
     this.listenMessages();
   }
-  componentWillReceiveProps(nextProps) {
-    if(nextProps.user) {
-      this.setState({'userName': nextProps.user.displayName});
+  componentWillReceiveProps(chatProps) {
+    if(chatProps.user) {
+      this.setState({'userName': chatProps.user.displayName});
     }
   }
   handleChange(event) {
@@ -40,7 +40,7 @@ class ChatForm extends Component {
   }
   listenMessages() {
     this.messageRef
-      .limitToLast(10)
+      .limitToLast(15)
       .on('value', message => {
         this.setState({
           list: Object.values(message.val()),
@@ -65,7 +65,7 @@ class ChatForm extends Component {
             onKeyPress={this.keyPress.bind(this)}
           />
           
-          <Button 
+          <Button isColor='danger'
             className="form__button"
             onClick={this.sendChat.bind(this)}
           >
